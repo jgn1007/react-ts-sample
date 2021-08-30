@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import Button from './components/Button';
+import ButtonEffect from './components/ButtonEffect';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Button />
+    <ButtonEffect />
   </React.StrictMode>,
   document.getElementById('root')
 );
