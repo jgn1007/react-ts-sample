@@ -8,11 +8,7 @@ const ButtonEffect = () => {
   const [items, setItems] = useState([])
 
   useEffect(() => {
-    fetchData()
-  }, [])
-
-  useEffect(() => {
-    if (clicks == 3 || clicks == 5) {
+    if ([0, 3, 5].indexOf(clicks) > -1) {
       fetchData()
     }
   }, [clicks])
@@ -20,6 +16,7 @@ const ButtonEffect = () => {
   const incrementItem = () => {
     setClicks(clicks + 1)
   }
+
   const fetchData = () => {
     const url = "https://httpbin.org/get"; // "https://www.youmaker.com/v1/api/video/latest/home?offset=0&limit=16&total=40&lang=en&cid=6"
     fetch(url,
