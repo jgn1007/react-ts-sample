@@ -2,13 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import Button from './components/Button';
-import ButtonEffect from './components/ButtonEffect';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ButtonEffect />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,26 +1,30 @@
 import React from 'react';
 import SubButton from './SubButton';
 
-interface State {
+interface IState {
   error: any,
-  clicks: number;
   isLoaded: boolean,
   items: any[]
 }
 
-class Button extends React.Component<{}, State> {
-  constructor(props: {}) {
+interface IProps {
+  clicks: number;
+  setClicks: React.Dispatch<React.SetStateAction<number>>
+}
+
+class Button extends React.Component<IProps, IState> {
+  constructor(props: IProps) {
     super(props);
-    this.state = { clicks: 0, isLoaded: false, items: [], error: null };
+    this.state = { isLoaded: false, items: [], error: null };
   }
 
   componentDidMount() {
     this.fetchData()
   }
 
-  componentDidUpdate({ }, prevState: any) {
-    if (this.state.clicks !== prevState.clicks) {
-      if (this.state.clicks == 3 || this.state.clicks == 5) {
+  componentDidUpdate(prevProps: IProps) {
+    if (this.props.clicks !== prevProps.clicks) {
+      if (this.props.clicks == 3 || this.props.clicks == 5) {
         this.fetchData()
       }
     }
@@ -39,13 +43,12 @@ class Button extends React.Component<{}, State> {
       })
       .then(payload => {
         console.log(payload);
-        let res_data: any = [];
-        Object.assign(res_data, this.state.items);
-        res_data.push({ "origin": payload.origin, "url": payload.url })
-        this.setState({
-          isLoaded: true,
-          items: res_data
-        })
+        this.setState(function (preState) {
+          return {
+            isLoaded: true,
+            items: [...preState.items, { "origin": payload.origin, "url": payload.url }]
+          }
+        });
       }, error => {
         this.setState({
           isLoaded: true,
@@ -55,9 +58,7 @@ class Button extends React.Component<{}, State> {
   }
 
   incrementItem = () => {
-    this.setState(function (state) {
-      return { clicks: state.clicks + 1 }
-    });
+    this.props.setClicks(this.props.clicks + 1);
   }
 
   render() {
@@ -70,7 +71,7 @@ class Button extends React.Component<{}, State> {
     } else {
       return (
         <div>
-          <button onClick={this.incrementItem}>Button {this.state.clicks}</button>
+          <button onClick={this.incrementItem}>Button {this.props.clicks}</button>
           <table>
             <tbody>
               <tr><th>origin</th><th>url</th></tr>
@@ -83,7 +84,7 @@ class Button extends React.Component<{}, State> {
               ))}
             </tbody>
           </table>
-          <SubButton onClick={this.incrementItem.bind(this)} clicks={this.state.clicks} />
+          <SubButton onClick={this.incrementItem.bind(this)} clicks={this.props.clicks} />
         </div>
       );
     }

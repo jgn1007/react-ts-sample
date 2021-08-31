@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import SubButton from './SubButton';
 
-const ButtonEffect = () => {
-  const [clicks, setClicks] = useState(0)
-  const [error, setError] = useState(null)
-  const [isLoaded, setIsLoaded] = useState(false)
+interface IProps {
+  clicks: number;
+  setClicks: React.Dispatch<React.SetStateAction<number>>
+}
+
+const ButtonEffect = (props: IProps) => {
+  // const [clicks, setClicks] = useState<number>(0)
+  const [error, setError] = useState<any>(null)
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [items, setItems] = useState([])
 
   useEffect(() => {
-    if ([0, 3, 5].indexOf(clicks) > -1) {
+    if ([0, 3, 5].indexOf(props.clicks) > -1) {
       fetchData()
     }
-  }, [clicks])
+  }, [props.clicks])
 
   const incrementItem = () => {
-    setClicks(clicks + 1)
+    props.setClicks(props.clicks + 1)
   }
 
   const fetchData = () => {
@@ -48,7 +53,7 @@ const ButtonEffect = () => {
   } else {
     return (
       <div>
-        <button onClick={incrementItem}>Button {clicks}</button>
+        <button onClick={incrementItem}>Button {props.clicks}</button>
         <table>
           <tbody>
             <tr><th>origin</th><th>url</th></tr>
@@ -61,7 +66,7 @@ const ButtonEffect = () => {
             ))}
           </tbody>
         </table>
-        <SubButton onClick={incrementItem.bind(this)} clicks={clicks} />
+        <SubButton onClick={incrementItem.bind(this)} clicks={props.clicks} />
       </div>
     );
   }
