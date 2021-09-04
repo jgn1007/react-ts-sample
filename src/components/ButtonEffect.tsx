@@ -10,7 +10,7 @@ const ButtonEffect = (props: IProps) => {
   // const [clicks, setClicks] = useState<number>(0)
   const [error, setError] = useState<any>(null)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState<{ origin: string, url: string }[] | null>(null)
 
   useEffect(() => {
     if ([0, 3, 5].indexOf(props.clicks) > -1) {
