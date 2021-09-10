@@ -7,8 +7,14 @@ import { addTodo } from '../actions/todo';
 
 
 export function* sagaAddTodo(context: any) {
-    const { payload, err } = yield call(fetchWrap, { url: 'add', type: 'POST' });
-    if (payload && !err) {
-        yield put(addTodo.done({ result: payload.result, params: context }));
-    }
+  try {
+    const { payload, err } = yield call(fetchWrap, { url: 'todo_list', type: 'POST', data: {} });
+    yield put(addTodo.done({ result: payload.result, params: context }));
+  } catch (e) {
+    yield put(addTodo.failed({
+      params: context,
+      error: new Error("")
+    }))
+  }
+
 }
