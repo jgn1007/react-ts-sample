@@ -8,7 +8,7 @@ export enum FILTER {
 }
 
 export interface IFilterState {
-  genre: FILTER.SHOW_ALL | FILTER.SHOW_DONE | FILTER.SHOW_ACTIVE
+  genre: FILTER
 }
 
 export const initFilterState: IFilterState = {

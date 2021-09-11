@@ -3,7 +3,7 @@ import * as React from 'react';
 interface IFilterButton {
   active: boolean
   name: string
-  onClick: any
+  onClick: () => void
 }
 
 export const FilterButton = ({ active, name, onClick }: IFilterButton) => (

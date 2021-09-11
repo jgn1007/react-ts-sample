@@ -2,18 +2,23 @@
   "todo_list": [
     {
       "text": "dafadsfa",
-      "done": true,
+      "done": false,
       "id": 1
     },
     {
       "text": "aaa",
-      "done": true,
+      "done": false,
       "id": 2
     },
     {
       "text": "ddddd",
       "done": false,
       "id": 3
+    },
+    {
+      "text": "dasfa",
+      "done": false,
+      "id": 4
     }
   ]
 }
