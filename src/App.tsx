@@ -3,7 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import Button from './components/Button';
 import ButtonEffect from './components/ButtonEffect';
-import TodoContainer from 'containers/todo_container'
+import { TodoComponent } from 'components/todo/todo_component';
+import { TodoContainer } from 'containers/todo_container';
 
 function App() {
   const [clicks, setClicks] = useState<number>(0)
