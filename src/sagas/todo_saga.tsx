@@ -6,52 +6,52 @@ import fetchWrap from '../utils/fetch_wrap';
 import { addTodo, deleteTodo, getTodo, updateDoneTodo } from '../actions/todo_action';
 
 
-export function* sagaAddTodo(context: any) {
+export function* sagaAddTodo(action: ReturnType<typeof addTodo.started>) {
   try {
-    yield call(fetchWrap, "todo_list", { data: { text: context.payload, done: false }, method: "POST" });
+    yield call(fetchWrap, "todo_list", { data: { text: action.payload, done: false }, method: "POST" });
     const { payload } = yield call(fetchWrap, "todo_list");
-    yield put(addTodo.done({ result: payload, params: context }));
+    yield put(addTodo.done({ result: payload, params: action.payload }));
   } catch (e) {
     yield put(addTodo.failed({
-      params: context,
+      params: action.payload,
       error: new Error("")
     }))
   }
 }
 
-export function* sagaDeleteTodo(context: any) {
+export function* sagaDeleteTodo(action: ReturnType<typeof deleteTodo.started>) {
   try {
-    yield call(fetchWrap, `todo_list/${context.payload}`, { method: "DELETE" });
+    yield call(fetchWrap, `todo_list/${action.payload}`, { method: "DELETE" });
     const { payload } = yield call(fetchWrap, "todo_list");
-    yield put(deleteTodo.done({ result: payload, params: context }));
+    yield put(deleteTodo.done({ result: payload, params: action.payload }));
   } catch (e) {
     yield put(deleteTodo.failed({
-      params: context,
+      params: action.payload,
       error: new Error("")
     }))
   }
 }
 
-export function* sagaUpdateDoneTodo(context: any) {
+export function* sagaUpdateDoneTodo(action: ReturnType<typeof updateDoneTodo.started>) {
   try {
-    yield call(fetchWrap, `todo_list/${context.payload.id}`, { method: "PATCH", data: { done: context.payload.done } });
+    yield call(fetchWrap, `todo_list/${action.payload.id}`, { method: "PATCH", data: { done: action.payload.done } });
     const { payload } = yield call(fetchWrap, "todo_list");
-    yield put(updateDoneTodo.done({ result: payload, params: context }));
+    yield put(updateDoneTodo.done({ result: payload, params: action.payload }));
   } catch (e) {
     yield put(updateDoneTodo.failed({
-      params: context,
+      params: action.payload,
       error: new Error("")
     }))
   }
 }
 
-export function* sagaGetTodos(context: any) {
+export function* sagaGetTodos(action: ReturnType<typeof getTodo.started>) {
   try {
     const { payload } = yield call(fetchWrap, "todo_list");
-    yield put(getTodo.done({ result: payload, params: context }));
+    yield put(getTodo.done({ result: payload, params: action.payload }));
   } catch (e) {
     yield put(getTodo.failed({
-      params: context,
+      params: action.payload,
       error: new Error("")
     }))
   }
