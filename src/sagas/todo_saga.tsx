@@ -57,13 +57,9 @@ export function* sagaGetTodos(action: ReturnType<typeof getTodo.started>) {
   }
 }
 
-function* watchTodo() {
+export default function* todoSaga() {
   yield takeLatest(addTodo.started, sagaAddTodo);
   yield takeLatest(getTodo.started, sagaGetTodos);
   yield takeLatest(deleteTodo.started, sagaDeleteTodo);
   yield takeLatest(updateDoneTodo.started, sagaUpdateDoneTodo);
-}
-
-export default function* todoSaga() {
-  yield all([fork(watchTodo)]);
 }
