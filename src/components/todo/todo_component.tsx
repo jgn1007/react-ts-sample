@@ -1,11 +1,13 @@
 import * as React from 'react';
-import { AnyAction, Dispatch } from 'redux';
+import { AnyAction, Dispatch, } from 'redux';
+import { useSelector, useDispatch } from "react-redux";
 import { addTodo, deleteTodo, filterTodo, getTodo, updateDoneTodo } from 'actions/todo_action';
 import { initTodoState, ITask, ITodoState } from 'reducers/todo_reducer';
 import { useEffect, useState } from 'react';
 import { isPropertySignature } from 'typescript';
 import { FILTER } from 'reducers/filter_reducer';
 import { FilterButton } from './filter_button';
+import { AppState } from 'reducers/root_reducer';
 
 interface ITodoProps {
   tasks: ITask[]
@@ -13,7 +15,23 @@ interface ITodoProps {
   dispatch: Dispatch<AnyAction>
 }
 
-export const TodoComponent = ({ tasks, filterGenre, dispatch }: ITodoProps) => {
+const getFilterTodos = (tasks: ITask[], filter: FILTER) => {
+  switch (filter) {
+    case FILTER.SHOW_ALL:
+      return tasks
+    case FILTER.SHOW_ACTIVE:
+      return tasks.filter(t => !t.done)
+    case FILTER.SHOW_DONE:
+      return tasks.filter(t => t.done)
+  }
+}
+
+export const TodoComponent = () => {
+
+  const { filterGenre, tasks } = useSelector((state: AppState) => {
+    return { filterGenre: state.filter.genre, tasks: getFilterTodos(state.todo.tasks, state.filter.genre) }
+  })
+  const dispatch = useDispatch();
   const [task, setTask] = useState("");
   useEffect(() => {
     dispatch(getTodo.started({}))

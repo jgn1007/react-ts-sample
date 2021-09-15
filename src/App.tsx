@@ -11,7 +11,7 @@ function App() {
   return (
     //<ButtonEffect setClicks={setClicks} clicks={clicks} />
     // <Button setClicks={setClicks} clicks={clicks} />
-    <TodoContainer />
+    <TodoComponent />
   );
 }
 
