@@ -1,20 +1,28 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
-import reducers from 'reducers/root_reducer';
+// import reducers from 'reducers/root_reducer';
 import rootSaga from 'sagas/root_saga';
+import { filterSlice } from 'slices/filter_slice';
+import { todoSlice } from 'slices/todo_slice';
 
-export default function configureStore(initialState: any) {
+const rootReducer = combineReducers({
+  todo: todoSlice.reducer,
+  filter: filterSlice.reducer
+});
+export type AppState = ReturnType<typeof rootReducer>;
+
+export default function configureAppStore(initialState: any) {
   const sagaMiddleware = createSagaMiddleware();
   const store = process.env.NODE_ENV === 'production' ?
     createStore(
-      reducers,
+      rootReducer,
       initialState,
       applyMiddleware(sagaMiddleware)
     )
     :
     createStore(
-      reducers,
+      rootReducer,
       initialState,
       composeWithDevTools(
         applyMiddleware(sagaMiddleware))
