@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from "react-redux";
-import { ITask } from 'reducers/todo_reducer';
 import { useEffect, useState } from 'react';
-import { FILTER } from 'reducers/filter_reducer';
 import { FilterButton } from './filter_button';
-import { addTodo, deleteTodo, getTodo, updateDoneTodo } from 'slices/todo_slice';
+import { addTodo, deleteTodo, getTodo, ITask, updateDoneTodo } from 'slices/todo_slice';
 import { AppState } from 'configStore';
-import { filterTodo } from 'slices/filter_slice';
+import { FILTER, filterTodo } from 'slices/filter_slice';
 
 const getFilterTodos = (tasks: ITask[], filter: FILTER) => {
   switch (filter) {

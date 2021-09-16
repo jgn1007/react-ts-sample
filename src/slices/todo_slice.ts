@@ -1,5 +1,10 @@
 import { createSlice, configureStore, PayloadAction } from '@reduxjs/toolkit';
-import { ITask } from 'reducers/todo_reducer';
+
+export interface ITask {
+  id: number;
+  text: string;
+  done: boolean;
+}
 
 export interface ITodoState {
   tasks: ITask[];
