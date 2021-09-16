@@ -74,7 +74,7 @@ export const TodoComponent = () => {
                     {task.done ? <span>done!</span> : null}
                   </li>))
               }
-            </ul> : <div>Network Error. Need to start the json server.</div>
+            </ul> : <div>Failed to fetch. Need to start the json server.</div>
       }
     </section>
   )

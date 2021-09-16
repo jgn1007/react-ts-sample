@@ -38,8 +38,16 @@ export function* sagaGetTodos() {
   try {
     const { payload } = yield call(fetchWrap, "todo_list");
     yield put(getTodoSuccess(payload));
-  } catch (e) {
-    yield put(getTodoFailed(new Error("error")));
+  } catch (error) {
+    yield put(getTodoFailed(getError(error)));
+  }
+}
+
+const getError = (error: unknown) => {
+  if (error instanceof Error) {
+    return error
+  } else {
+    return new Error("error")
   }
 }
 
